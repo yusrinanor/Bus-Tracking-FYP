@@ -71,7 +71,7 @@ public class AdminHome extends AppCompatActivity implements
                 startActivity(editschedule);
                 finish();
                 return true;
-            case R.id.nav_BusArrivalDepart:
+            case R.id.nav_BusReport:
                 return true;
             case R.id.nav_ViewFeedback:
                 Intent ViewFeed = new Intent(AdminHome.this, ViewFeedback.class);

@@ -144,7 +144,7 @@ public class ViewFeedback extends AppCompatActivity implements NavigationView.On
                 startActivity(editschedule);
                 finish();
                 return true;
-            case R.id.nav_BusArrivalDepart:
+            case R.id.nav_BusReport:
                 return true;
             case R.id.nav_ViewFeedback:
                 return true;

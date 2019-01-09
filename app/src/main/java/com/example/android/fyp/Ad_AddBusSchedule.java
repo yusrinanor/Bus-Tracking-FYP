@@ -115,7 +115,7 @@ public class Ad_AddBusSchedule extends AppCompatActivity implements NavigationVi
                 startActivity(editschedule);
                 finish();
                 return true;
-            case R.id.nav_BusArrivalDepart:
+            case R.id.nav_BusReport:
                 return true;
             case R.id.nav_ViewFeedback:
                 Intent feedback = new Intent(Ad_AddBusSchedule.this, ViewFeedback.class);
