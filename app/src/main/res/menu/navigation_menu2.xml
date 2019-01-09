@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/nav_Home"
+            android:icon="@drawable/home"
+            android:title="Home"/>
+
+        <item android:id="@+id/nav_AddBusSchedule"
+            android:icon="@drawable/addbutton"
+            android:title="Add Bus Schedule"/>
+
+        <item android:id="@+id/nav_EditSchedule"
+            android:icon="@drawable/clearbutton"
+            android:title="Delete Bus Schedule"/>
+
+        <item android:id="@+id/nav_BusReport"
+            android:icon="@drawable/location"
+            android:title="Bus Report"/>
+
+        <item android:id="@+id/nav_ViewFeedback"
+            android:icon="@drawable/feedback"
+            android:title="View Feedbacks"/>
+
+        <item android:id="@+id/nav_Logout"
+            android:icon="@drawable/baseline_exit_to_app_black_18dp"
+            android:title="Logout"/>
+    </group>
+</menu>

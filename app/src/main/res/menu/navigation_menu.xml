@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/nav_Home"
+            android:icon="@drawable/home"
+            android:title="Home"/>
+
+        <item android:id="@+id/nav_ViewBusSchedule"
+            android:icon="@drawable/bus"
+            android:title="View Bus Schedule"/>
+
+        <item android:id="@+id/nav_BusTracking"
+            android:icon="@drawable/location"
+            android:title="Bus Tracking"/>
+
+        <item android:id="@+id/nav_Feedback"
+            android:icon="@drawable/feedback"
+            android:title="Give Feedback"/>
+
+        <item android:id="@+id/nav_Logout"
+            android:icon="@drawable/baseline_exit_to_app_black_18dp"
+            android:title="Logout"/>
+    </group>
+</menu>
