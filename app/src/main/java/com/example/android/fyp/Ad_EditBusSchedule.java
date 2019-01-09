@@ -133,8 +133,8 @@ public class Ad_EditBusSchedule extends AppCompatActivity implements
             case R.id.nav_BusReport:
                 return true;
             case R.id.nav_ViewFeedback:
-                Intent feedback1 = new Intent(Ad_EditBusSchedule.this, ViewFeedback.class);
-                startActivity(feedback1);
+                Intent feedback = new Intent(Ad_EditBusSchedule.this, ViewFeedback.class);
+                startActivity(feedback);
                 finish();
                 return true;
             case R.id.nav_Logout:
