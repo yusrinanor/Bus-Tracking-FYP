@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -121,7 +122,7 @@ public class Ad_AddBusSchedule extends AppCompatActivity implements NavigationVi
                 Intent feedback = new Intent(Ad_AddBusSchedule.this, ViewFeedback.class);
                 startActivity(feedback);
                 finish();
-                Log.d('amam', 'amam');
+                Log.d("amam", "amam");
                 return true;
             case R.id.nav_Logout:
                 FirebaseAuth.getInstance().signOut();

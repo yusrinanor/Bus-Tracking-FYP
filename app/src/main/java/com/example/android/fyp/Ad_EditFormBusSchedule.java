@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -75,6 +76,7 @@ public class Ad_EditFormBusSchedule extends AppCompatActivity implements Navigat
                 Intent editschedule = new Intent(Ad_EditFormBusSchedule.this, Ad_EditBusSchedule.class);
                 startActivity(editschedule);
                 finish();
+                Log.d("amam", "amam");
                 return true;
 
             case R.id.nav_ViewFeedback:
