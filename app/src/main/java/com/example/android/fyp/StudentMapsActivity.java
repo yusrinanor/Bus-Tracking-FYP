@@ -14,6 +14,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -61,7 +62,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -132,6 +136,8 @@ public class StudentMapsActivity extends AppCompatActivity implements OnMapReady
     private String location;
     private FirebaseUser currUser;
     private String driver_destination;
+    private Location apuLocation = new Location("");
+    private Location assignationLocation = new Location("");
     Marker mCurrLocationMarker;
 
     @Override
@@ -223,12 +229,16 @@ public class StudentMapsActivity extends AppCompatActivity implements OnMapReady
                         Double longitude = td.get("longitude");
                         LatLng latlong = new LatLng(latitude, longitude);
                         if(postSnapshot.getKey().equals("Apu")) {
+                            apuLocation.setLongitude(longitude);
+                            apuLocation.setLatitude(latitude);
                             mMap.addMarker(new MarkerOptions()
                                     .position(latlong)
                                     .title(postSnapshot.getKey())
                                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
                         }
                         else {
+                            assignationLocation.setLatitude(latitude);
+                            assignationLocation.setLongitude(longitude);
                             mMap.addMarker(new MarkerOptions()
                                     .position(latlong)
                                     .title(postSnapshot.getKey())
@@ -244,8 +254,6 @@ public class StudentMapsActivity extends AppCompatActivity implements OnMapReady
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
-
-
         });
 
 
@@ -346,6 +354,15 @@ public class StudentMapsActivity extends AppCompatActivity implements OnMapReady
         }
     }
 
+    public void pushNotif(String title, String message) {
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "anu")
+                .setSmallIcon(R.drawable.logo1)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setStyle(new NotificationCompat.BigTextStyle())
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+    }
+
 
 
 
@@ -390,6 +407,40 @@ public class StudentMapsActivity extends AppCompatActivity implements OnMapReady
                                     markerOptions.icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_school_bus));
                                     Marker marker = mMap.addMarker(markerOptions);
                                     markers.put(key, marker);
+                                    Location driverLocation = new Location("");
+                                    driverLocation.setLatitude(geolocation.latitude);
+                                    driverLocation.setLongitude(geolocation.longitude);
+
+                                    float distanceAssignation = driverLocation.distanceTo(assignationLocation);
+                                    float distanceApu = driverLocation.distanceTo(apuLocation);
+
+                                    if(distanceAssignation<100){
+                                        pushNotif("APU's Shuttle Bus Service", "Bus Arriving To Destination");
+                                    } else if(distanceAssignation<50) {
+                                        pushNotif("APU's Shuttle Bus Service", "Bus Has Arrived At Destination");
+                                        mDatabase = FirebaseDatabase.getInstance().getReference();
+                                        Date c = Calendar.getInstance().getTime();
+                                        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+                                        SimpleDateFormat tf = new SimpleDateFormat("HH:mm:ss");
+                                        String formattedDate = df.format(c);
+                                        String formattedTime = tf.format(c);
+                                        Report report = new Report("APU", assignation, assignation, formattedTime, formattedDate);
+                                        mDatabase.child("Report").push().setValue(report);
+                                    }
+
+                                    if(distanceApu<100){
+                                        pushNotif("APU's Shuttle Bus Service", "Bus Arriving To APU");
+                                    } else if(distanceApu<50){
+                                        pushNotif("APU's Shuttle Bus Service", "Bus Has Arrived At APU");
+                                        mDatabase = FirebaseDatabase.getInstance().getReference();
+                                        Date c = Calendar.getInstance().getTime();
+                                        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+                                        SimpleDateFormat tf = new SimpleDateFormat("HH:mm:ss");
+                                        String formattedDate = df.format(c);
+                                        String formattedTime = tf.format(c);
+                                        Report report = new Report(assignation, "APU", assignation, formattedTime, formattedDate);
+                                        mDatabase.child("Report").push().setValue(report);
+                                    }
                                 }
                             }
 
