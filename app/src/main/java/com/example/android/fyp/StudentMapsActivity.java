@@ -355,7 +355,7 @@ public class StudentMapsActivity extends AppCompatActivity implements OnMapReady
     }
 
     public void pushNotif(String title, String message) {
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "anu")
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "push")
                 .setSmallIcon(R.drawable.logo1)
                 .setContentTitle(title)
                 .setContentText(message)

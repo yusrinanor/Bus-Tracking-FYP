@@ -57,7 +57,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -130,6 +133,8 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
     private FirebaseAuth mAuth;
     private FirebaseUser currUser;
     private String driver_destination;
+    private Location apuLocation = new Location("");
+    private Location assignationLocation = new Location("");
     Marker mCurrLocationMarker;
 
 
@@ -406,10 +411,52 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
                 LatLng loc = new LatLng(LastLocation.getLatitude(), LastLocation.getLongitude());
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
                 mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+
+
+                DatabaseReference drivRef = FirebaseDatabase.getInstance().getReference().child("Users").child("DriversAssignation").child(currUser.getUid());
+                drivRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        String assignation = (String) dataSnapshot.child("assignation").getValue();
+                        float distanceAssignation = LastLocation.distanceTo(assignationLocation);
+                        float distanceApu = LastLocation.distanceTo(apuLocation);
+
+
+                        if(distanceAssignation<50) {
+                            mDatabase = FirebaseDatabase.getInstance().getReference();
+                            Date c = Calendar.getInstance().getTime();
+                            SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+                            SimpleDateFormat tf = new SimpleDateFormat("HH:mm:ss");
+                            String formattedDate = df.format(c);
+                            String formattedTime = tf.format(c);
+                            Report report = new Report("APU", assignation, assignation, formattedTime, formattedDate);
+                            mDatabase.child("Report").push().setValue(report);
+                        }
+
+                        if(distanceApu<50){
+                            mDatabase = FirebaseDatabase.getInstance().getReference();
+                            Date c = Calendar.getInstance().getTime();
+                            SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+                            SimpleDateFormat tf = new SimpleDateFormat("HH:mm:ss");
+                            String formattedDate = df.format(c);
+                            String formattedTime = tf.format(c);
+                            Report report = new Report(assignation, "APU", assignation, formattedTime, formattedDate);
+                            mDatabase.child("Report").push().setValue(report);
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+            }
             }
         }
 
-    }
+
 
     @Override
     public void onConnectionSuspended(int i) {
