@@ -26,14 +26,19 @@ public class EndahReport extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.endahreport, container, false);
-
+        // get current layout activity
         layoutManager = new LinearLayoutManager(getActivity());
+        // initialize recyclerview
         reportRecyclerView = (RecyclerView) view.findViewById(R.id.reportRecycler);
+        // set size of recyclerview to be fixed as the content goes on
         reportRecyclerView.setHasFixedSize(true);
+        // initialize firebase database reference
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+        // get report reference
         reportRef = mDatabaseRef.child("Report");
+        //initialize adapter containing report appending card in report holder with the endah query filter
         reportAdapter = new FirebaseRecyclerAdapter<Report, ReportHolder>(
-                Report.class, R.layout.cardviewreport, ReportHolder.class, reportRef.orderByChild("route").equalTo("ENDAH-APU")
+                Report.class, R.layout.cardviewreport, ReportHolder.class, reportRef.orderByChild("route").equalTo("ENDAH-APU") // select * from Report where route = endah-apu
         ) {
             @Override
             protected void populateViewHolder(ReportHolder viewHolder, Report model, int position) {
@@ -49,19 +54,5 @@ public class EndahReport extends Fragment {
         reportRecyclerView.setAdapter(reportAdapter);
 
         return view;
-    }
-}
-
-class ReportHolder extends RecyclerView.ViewHolder{
-    public TextView txtDate, txtTime, txtFrom, txtTo, txtRoute;
-
-    public ReportHolder(View itemView) {
-        super(itemView);
-
-        txtDate     = (TextView)itemView.findViewById(R.id.Date);
-        txtTime     = (TextView)itemView.findViewById(R.id.Time);
-        txtFrom     = (TextView)itemView.findViewById(R.id.From);
-        txtTo       = (TextView)itemView.findViewById(R.id.To);
-        txtRoute    = (TextView)itemView.findViewById(R.id.Route);
     }
 }
