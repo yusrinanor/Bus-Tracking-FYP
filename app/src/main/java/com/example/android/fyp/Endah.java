@@ -19,7 +19,6 @@ public class Endah extends Fragment {
     public ListView listView;
     public ListView listView2;
     public RecyclerView.LayoutManager layoutManager;
-
     private FirebaseDatabase mDatabase;
     private DatabaseReference toAPU;
     private DatabaseReference fromAPU;

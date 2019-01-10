@@ -72,6 +72,9 @@ public class AdminHome extends AppCompatActivity implements
                 finish();
                 return true;
             case R.id.nav_BusReport:
+                Intent busreport = new Intent(AdminHome.this, Ad_Bus_Report.class);
+                startActivity(busreport);
+                finish();
                 return true;
             case R.id.nav_ViewFeedback:
                 Intent ViewFeed = new Intent(AdminHome.this, ViewFeedback.class);

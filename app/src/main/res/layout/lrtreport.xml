@@ -7,6 +7,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="LRT Report"
+        android:textSize="25dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
         />
 
     <android.support.v7.widget.RecyclerView

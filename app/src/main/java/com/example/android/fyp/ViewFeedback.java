@@ -145,6 +145,9 @@ public class ViewFeedback extends AppCompatActivity implements NavigationView.On
                 finish();
                 return true;
             case R.id.nav_BusReport:
+                Intent busreport = new Intent(ViewFeedback.this, Ad_Bus_Report.class);
+                startActivity(busreport);
+                finish();
                 return true;
             case R.id.nav_ViewFeedback:
                 return true;
