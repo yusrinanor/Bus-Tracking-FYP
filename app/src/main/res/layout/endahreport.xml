@@ -1,56 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="25dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:text="Endah Report"
-        />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        >
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="All"
-            android:background="@color/colorPrimary"
-            android:textColor="@android:color/white"
-            android:id="@+id/lastWeek"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="All"
-            android:background="@color/colorPrimary"
-            android:textColor="@android:color/white"
-            android:id="@+id/ViewAll"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:text="All"
-            android:background="@color/colorPrimary"
-            android:textColor="@android:color/white"
-            android:id="@+id/thisWeek"/>
-    </RelativeLayout>
-
-
-
-    <android.support.v7.widget.RecyclerView
+    >
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="20dp"
-        android:id="@+id/reportRecycler"
-        >
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="Endah Report"
+            />
 
-    </android.support.v7.widget.RecyclerView>
-</LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            >
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="10dp"
+                android:text="last week"
+                android:background="@color/colororange"
+                android:textColor="@android:color/white"
+                android:id="@+id/lastWeek"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="all"
+                android:background="@color/colorPrimary"
+                android:textColor="@android:color/white"
+                android:id="@+id/ViewAll"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="10dp"
+                android:text="this week"
+                android:background="@color/colorgreen"
+                android:textColor="@android:color/white"
+                android:id="@+id/thisWeek"/>
+        </RelativeLayout>
+
+
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="20dp"
+            android:id="@+id/reportRecycler"
+            >
+
+        </android.support.v7.widget.RecyclerView>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/switchbutt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:src="@drawable/ic_compare_arrows_black_24dp"
+            android:backgroundTint="#FF9800"
+            android:layout_margin="16dp" />
+
+    </LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/switchToFrom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:src="@drawable/ic_compare_arrows_black_24dp"
+        android:backgroundTint="@color/colorAccent"
+        android:layout_margin="16dp" />
+</android.support.design.widget.CoordinatorLayout>
