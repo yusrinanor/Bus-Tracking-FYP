@@ -2,12 +2,14 @@ package com.example.android.fyp;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -22,6 +24,8 @@ public class EndahReport extends Fragment {
     private FirebaseRecyclerAdapter<Report, ReportHolder> reportAdapter;
     private DatabaseReference mDatabaseRef;
     private DatabaseReference reportRef;
+    private Button thisWeekButt, allButt, lastWeekButt;
+    private FloatingActionButton switchbutt;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -52,6 +56,22 @@ public class EndahReport extends Fragment {
         reportAdapter.notifyDataSetChanged();
         reportRecyclerView.setLayoutManager(layoutManager);
         reportRecyclerView.setAdapter(reportAdapter);
+
+        //create filter
+
+        thisWeekButt = (Button) view.findViewById(R.id.thisWeek);
+        allButt = (Button) view.findViewById(R.id.all);
+        lastWeekButt = (Button) view.findViewById(R.id.lastWeek);
+        switchbutt = (FloatingActionButton) view.findViewById(R.id.switchToFrom);
+
+        thisWeekButt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+
 
         return view;
     }
