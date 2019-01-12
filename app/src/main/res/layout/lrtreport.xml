@@ -24,7 +24,7 @@
         android:textSize="15dp"
         android:id="@+id/filter_text"
         android:layout_gravity="center"
-        android:text="All From"
+        android:text="All From LRT"
         />
     <RelativeLayout
         android:layout_width="match_parent"

@@ -14,7 +14,7 @@
             android:title="Delete Bus Schedule"/>
 
         <item android:id="@+id/nav_BusReport"
-            android:icon="@drawable/location"
+            android:icon="@drawable/report"
             android:title="Bus Report"/>
 
         <item android:id="@+id/nav_ViewFeedback"

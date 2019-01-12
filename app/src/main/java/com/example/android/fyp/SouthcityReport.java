@@ -175,12 +175,12 @@ public class SouthcityReport extends Fragment {
                     destination_switch = "to";
                     reportRecyclerView.swapAdapter(reportAdapterAllTo, false);
                     reportAdapterAllTo.notifyDataSetChanged();
-                    filter_text.setText("All To");
+                    filter_text.setText("All To Southcity");
                 } else {
                     destination_switch = "from";
                     reportRecyclerView.swapAdapter(reportAdapterAllFrom, false);
                     reportAdapterAllFrom.notifyDataSetChanged();
-                    filter_text.setText("All From");
+                    filter_text.setText("All From Southcity");
                 }
             }
         });

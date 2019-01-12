@@ -184,12 +184,12 @@ public class EndahReport extends Fragment {
 
                     reportRecyclerView.swapAdapter(reportAdapterAllTo, false);
                     reportAdapterAllTo.notifyDataSetChanged();
-                    filter_text.setText("All To");
+                    filter_text.setText("All To Endah");
                 } else {
                     destination_switch = "from";
                     reportRecyclerView.swapAdapter(reportAdapterAllFrom, false);
                     reportAdapterAllFrom.notifyDataSetChanged();
-                    filter_text.setText("All From");
+                    filter_text.setText("All From Endah");
                 }
             }
         });
