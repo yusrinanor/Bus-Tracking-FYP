@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,87 +47,105 @@ public class EndahReport extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.endahreport, container, false);
-        // get current layout activity
-        layoutManager = new LinearLayoutManager(getActivity());
-        // initialize recyclerview
+        FragmentActivity fragmentActivity = getActivity();
         reportRecyclerView = (RecyclerView) view.findViewById(R.id.reportRecycler);
-        //display text when switch button is clicked
-        filter_text = (TextView) view.findViewById(R.id.filter_text);
-        // set size of recyclerview to be fixed as the content goes on
         reportRecyclerView.setHasFixedSize(true);
-        // initialize firebase database reference
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-        // get report reference
-        reportRef = mDatabaseRef.child("Report");
+        layoutManager = new LinearLayoutManager(fragmentActivity);
+        reportRecyclerView.setLayoutManager(layoutManager);
+
         Calendar cal = Calendar.getInstance();
         date_now = convertToTimestamp(cal, 0);
         date_this_week = convertToTimestamp(cal, -7);
         date_last_week = convertToTimestamp(cal, -14);
-        //initialize adapter containing report appending card in report holder with the endah query filter
-        reportAdapterAllFrom = new FirebaseRecyclerAdapter<Report, ReportHolder>(
-                Report.class, R.layout.cardviewreport, ReportHolder.class, reportRef.orderByChild("route").equalTo("ENDAH-APU").orderByChild("from") // select * from Report where route = endah-apu
-        ) {
-            @Override
-            protected void populateViewHolder(ReportHolder viewHolder, Report model, int position) {
-                viewHolder.txtDate.setText(viewHolder.txtDate.getText().toString() + ": " + getDateString(model.getDatetime() * 1000));
-                viewHolder.txtTime.setText(viewHolder.txtTime.getText().toString() + " " + getTimeString(model.getDatetime() * 1000));
-                viewHolder.txtFrom.setText(viewHolder.txtFrom.getText().toString() + " " + model.getFrom());
-                viewHolder.txtTo.setText(viewHolder.txtTo.getText().toString() + " " + model.getTo());
-                viewHolder.txtRoute.setText(viewHolder.txtRoute.getText().toString() + ": " + model.getRoute());
-            }
-        };
-        reportAdapterAllFrom.notifyDataSetChanged();
 
-        reportAdapterAllTo = new FirebaseRecyclerAdapter<Report, ReportHolder>(
-                Report.class, R.layout.cardviewreport, ReportHolder.class, reportRef.orderByChild("route").equalTo("ENDAH-APU").orderByChild("to") // select * from Report where route = endah-apu
+
+        filter_text = (TextView) view.findViewById(R.id.filter_text);
+        // initialize firebase database reference
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+        // get report reference
+        reportRef = mDatabaseRef.child("Report");
+        //initialize adapter containing report appending card in report holder with the endah query filter
+
+
+        reportAdapterAllFrom = new FirebaseRecyclerAdapter<Report, ReportHolder>(
+                Report.class, R.layout.cardviewreport, ReportHolder.class, reportRef.child("ENDAH-APU").orderByChild("from").equalTo("Endah") // select * from Report where route = endah-apu
         ) {
             @Override
             protected void populateViewHolder(ReportHolder viewHolder, Report model, int position) {
-                viewHolder.txtDate.setText(viewHolder.txtDate.getText().toString() + ": " + getDateString(model.getDatetime() * 1000));
-                viewHolder.txtTime.setText(viewHolder.txtTime.getText().toString() + " " + getTimeString(model.getDatetime() * 1000));
-                viewHolder.txtFrom.setText(viewHolder.txtFrom.getText().toString() + " " + model.getFrom());
-                viewHolder.txtTo.setText(viewHolder.txtTo.getText().toString() + " " + model.getTo());
-                viewHolder.txtRoute.setText(viewHolder.txtRoute.getText().toString() + ": " + model.getRoute());
+                viewHolder.txtDate.setText("");
+                viewHolder.txtTime.setText("");
+                viewHolder.txtFrom.setText("");
+                viewHolder.txtTo.setText("");
+                viewHolder.txtRoute.setText("");
+                viewHolder.txtDate.setText("Date"   + ": " + getDateString(model.getDatetime() * 1000));
+                viewHolder.txtTime.setText("Time"   + ": " + getTimeString(model.getDatetime() * 1000));
+                viewHolder.txtFrom.setText("From"   + ": " + model.getFrom());
+                viewHolder.txtTo.setText("To"       + ": " + model.getTo());
+                viewHolder.txtRoute.setText("Route" + ": " + model.getRoute());
             }
         };
-        reportAdapterAllTo.notifyDataSetChanged();
 
         reportAdapterThisWeek = new FirebaseRecyclerAdapter<Report, ReportHolder>(
-                Report.class, R.layout.cardviewreport, ReportHolder.class, reportRef.orderByChild("route").equalTo("ENDAH-APU").orderByChild("datetime").startAt(date_this_week).endAt(date_now) // select * from Report where route = endah-apu
+                Report.class, R.layout.cardviewreport, ReportHolder.class, reportRef.child("ENDAH-APU").orderByChild("datetime").startAt(date_this_week).endAt(date_now) // select * from Report where route = endah-apu
         ) {
             @Override
             protected void populateViewHolder(ReportHolder viewHolder, Report model, int position) {
-                viewHolder.txtDate.setText(viewHolder.txtDate.getText().toString() + ": " + getDateString(model.getDatetime() * 1000));
-                viewHolder.txtTime.setText(viewHolder.txtTime.getText().toString() + " " + getTimeString(model.getDatetime() * 1000));
-                viewHolder.txtFrom.setText(viewHolder.txtFrom.getText().toString() + " " + model.getFrom());
-                viewHolder.txtTo.setText(viewHolder.txtTo.getText().toString() + " " + model.getTo());
-                viewHolder.txtRoute.setText(viewHolder.txtRoute.getText().toString() + ": " + model.getRoute());
+                viewHolder.txtDate.setText("");
+                viewHolder.txtTime.setText("");
+                viewHolder.txtFrom.setText("");
+                viewHolder.txtTo.setText("");
+                viewHolder.txtRoute.setText("");
+                viewHolder.txtDate.setText("Date"   + ": " + getDateString(model.getDatetime() * 1000));
+                viewHolder.txtTime.setText("Time"   + ": " + getTimeString(model.getDatetime() * 1000));
+                viewHolder.txtFrom.setText("From"   + ": " + model.getFrom());
+                viewHolder.txtTo.setText("To"       + ": " + model.getTo());
+                viewHolder.txtRoute.setText("Route" + ": " + model.getRoute());
             }
         };
-        reportAdapterThisWeek.notifyDataSetChanged();
 
         reportAdapterLastWeek = new FirebaseRecyclerAdapter<Report, ReportHolder>(
-                Report.class, R.layout.cardviewreport, ReportHolder.class, reportRef.orderByChild("route").equalTo("ENDAH-APU").orderByChild("datetime").startAt(date_last_week).endAt(date_this_week) // select * from Report where route = endah-apu
+                Report.class, R.layout.cardviewreport, ReportHolder.class, reportRef.child("ENDAH-APU").orderByChild("datetime").startAt(date_last_week).endAt(date_this_week) // select * from Report where route = endah-apu
         ) {
             @Override
             protected void populateViewHolder(ReportHolder viewHolder, Report model, int position) {
-                viewHolder.txtDate.setText(viewHolder.txtDate.getText().toString() + ": " + getDateString(model.getDatetime() * 1000));
-                viewHolder.txtTime.setText(viewHolder.txtTime.getText().toString() + " " + getTimeString(model.getDatetime() * 1000));
-                viewHolder.txtFrom.setText(viewHolder.txtFrom.getText().toString() + " " + model.getFrom());
-                viewHolder.txtTo.setText(viewHolder.txtTo.getText().toString() + " " + model.getTo());
-                viewHolder.txtRoute.setText(viewHolder.txtRoute.getText().toString() + ": " + model.getRoute());
+                viewHolder.txtDate.setText("");
+                viewHolder.txtTime.setText("");
+                viewHolder.txtFrom.setText("");
+                viewHolder.txtTo.setText("");
+                viewHolder.txtRoute.setText("");
+                viewHolder.txtDate.setText("Date"   + ": " + getDateString(model.getDatetime() * 1000));
+                viewHolder.txtTime.setText("Time"   + ": " + getTimeString(model.getDatetime() * 1000));
+                viewHolder.txtFrom.setText("From"   + ": " + model.getFrom());
+                viewHolder.txtTo.setText("To"       + ": " + model.getTo());
+                viewHolder.txtRoute.setText("Route" + ": " + model.getRoute());
             }
         };
-        reportAdapterLastWeek.notifyDataSetChanged();
 
 
-        reportRecyclerView.setLayoutManager(layoutManager);
+        reportAdapterAllTo = new FirebaseRecyclerAdapter<Report, ReportHolder>(
+                Report.class, R.layout.cardviewreport, ReportHolder.class, reportRef.child("ENDAH-APU").orderByChild("to").equalTo("Endah") // select * from Report where route = endah-apu
+        ) {
+            @Override
+            protected void populateViewHolder(ReportHolder viewHolder, Report model, int position) {
+                viewHolder.txtDate.setText("");
+                viewHolder.txtTime.setText("");
+                viewHolder.txtFrom.setText("");
+                viewHolder.txtTo.setText("");
+                viewHolder.txtRoute.setText("");
+                viewHolder.txtDate.setText("Date"   + ": " + getDateString(model.getDatetime() * 1000));
+                viewHolder.txtTime.setText("Time"   + ": " + getTimeString(model.getDatetime() * 1000));
+                viewHolder.txtFrom.setText("From"   + ": " + model.getFrom());
+                viewHolder.txtTo.setText("To"       + ": " + model.getTo());
+                viewHolder.txtRoute.setText("Route" + ": " + model.getRoute());
+            }
+        };
+
         reportRecyclerView.setAdapter(reportAdapterAllFrom);
+        reportRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         //create filter
-
         thisWeekButt = (Button) view.findViewById(R.id.thisWeek);
-        allButt = (Button) view.findViewById(R.id.all);
+        allButt = (Button) view.findViewById(R.id.ViewAll);
         lastWeekButt = (Button) view.findViewById(R.id.lastWeek);
         switchbutt = (FloatingActionButton) view.findViewById(R.id.switchToFrom);
 
@@ -133,6 +153,7 @@ public class EndahReport extends Fragment {
             @Override
             public void onClick(View view) {
                 reportRecyclerView.swapAdapter(reportAdapterThisWeek, false);
+                reportAdapterThisWeek.notifyDataSetChanged();
                 filter_text.setText("This week");
             }
         });
@@ -141,6 +162,7 @@ public class EndahReport extends Fragment {
             @Override
             public void onClick(View view) {
                 reportRecyclerView.swapAdapter(reportAdapterLastWeek, false);
+                reportAdapterLastWeek.notifyDataSetChanged();
                 filter_text.setText("Last week");
             }
         });
@@ -149,6 +171,7 @@ public class EndahReport extends Fragment {
             @Override
             public void onClick(View view) {
                 reportRecyclerView.swapAdapter(reportAdapterAllFrom, false);
+                reportAdapterAllFrom.notifyDataSetChanged();
                 filter_text.setText("All from");
             }
         });
@@ -158,11 +181,14 @@ public class EndahReport extends Fragment {
             public void onClick(View view) {
                 if (destination_switch == "from") {
                     destination_switch = "to";
+
                     reportRecyclerView.swapAdapter(reportAdapterAllTo, false);
+                    reportAdapterAllTo.notifyDataSetChanged();
                     filter_text.setText("All To");
                 } else {
                     destination_switch = "from";
                     reportRecyclerView.swapAdapter(reportAdapterAllFrom, false);
+                    reportAdapterAllFrom.notifyDataSetChanged();
                     filter_text.setText("All From");
                 }
             }

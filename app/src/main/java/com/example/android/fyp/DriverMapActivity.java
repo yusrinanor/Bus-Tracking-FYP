@@ -65,6 +65,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.android.fyp.Utility.convertToTimestamp;
+
 public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener, RoutingListener {
     private List<Polyline> polylines;
     private static final int[] COLORS = new int[]{R.color.colorPrimary};
@@ -424,19 +426,18 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
 
                         if(distanceAssignation<50) {
                             mDatabase = FirebaseDatabase.getInstance().getReference();
-                            Calendar datetime = Calendar.getInstance();
-                            long now_date = datetime.getTimeInMillis();
-                            Log.d("timeinmilis", Long.toString(now_date));
+                            Calendar calendar = Calendar.getInstance();
+                            long now_date = convertToTimestamp(calendar, 0);
                             Report report = new Report("APU", assignation, assignation.toUpperCase() + "-" + "APU", now_date);
-                            mDatabase.child("Report").push().setValue(report);
+                            mDatabase.child("Report").child( assignation.toUpperCase() + "-APU").push().setValue(report);
                         }
 
                         if(distanceApu<50){
                             mDatabase = FirebaseDatabase.getInstance().getReference();
-                            Calendar datetime = Calendar.getInstance();
-                            long now_date = datetime.getTimeInMillis();
+                            Calendar calendar = Calendar.getInstance();
+                            long now_date = calendar.getTimeInMillis();
                             Report report = new Report(assignation, "APU", assignation.toUpperCase() + "-" + "APU", now_date);
-                            mDatabase.child("Report").push().setValue(report);
+                            mDatabase.child("Report").child( assignation.toUpperCase() + "-APU").push().setValue(report);
                         }
 
                     }

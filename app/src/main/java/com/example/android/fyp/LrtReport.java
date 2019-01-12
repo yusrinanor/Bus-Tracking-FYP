@@ -56,57 +56,81 @@ public class LrtReport extends Fragment {
         date_now = convertToTimestamp(cal, 0);
         date_last_week = convertToTimestamp(cal, -14);
         date_this_week = convertToTimestamp(cal, -7);
-        reportAdapterAllFrom = new FirebaseRecyclerAdapter<Report, ReportHolder>(Report.class, R.layout.cardviewreport, ReportHolder.class, reportRef.orderByChild("route").equalTo("LRT-APU").orderByChild("from")) {
+
+
+        reportAdapterAllFrom = new FirebaseRecyclerAdapter<Report, ReportHolder>(
+                Report.class, R.layout.cardviewreport, ReportHolder.class, reportRef.child("LRT-APU").orderByChild("from").equalTo("LRT") // select * from Report where route = endah-apu
+        ) {
             @Override
             protected void populateViewHolder(ReportHolder viewHolder, Report model, int position) {
-                viewHolder.txtDate.setText(viewHolder.txtDate.getText().toString() + ": " + getDateString(model.getDatetime()));
-                viewHolder.txtTime.setText(viewHolder.txtTime.getText().toString() + " " + getTimeString(model.getDatetime()));
-                viewHolder.txtFrom.setText(viewHolder.txtFrom.getText().toString() + " " + model.getFrom());
-                viewHolder.txtTo.setText(viewHolder.txtTo.getText().toString() + " " + model.getTo());
-                viewHolder.txtRoute.setText(viewHolder.txtRoute.getText().toString() + ": " + model.getRoute());
-
+                viewHolder.txtDate.setText("");
+                viewHolder.txtTime.setText("");
+                viewHolder.txtFrom.setText("");
+                viewHolder.txtTo.setText("");
+                viewHolder.txtRoute.setText("");
+                viewHolder.txtDate.setText("Date"   + ": " + getDateString(model.getDatetime() * 1000));
+                viewHolder.txtTime.setText("Time"   + ": " + getTimeString(model.getDatetime() * 1000));
+                viewHolder.txtFrom.setText("From"   + ": " + model.getFrom());
+                viewHolder.txtTo.setText("To"       + ": " + model.getTo());
+                viewHolder.txtRoute.setText("Route" + ": " + model.getRoute());
             }
         };
-        reportAdapterAllFrom.notifyDataSetChanged();
 
-        reportAdapterAllTo = new FirebaseRecyclerAdapter<Report, ReportHolder>(Report.class, R.layout.cardviewreport, ReportHolder.class, reportRef.orderByChild("route").equalTo("LRT-APU").orderByChild("to")) {
+
+        reportAdapterThisWeek = new FirebaseRecyclerAdapter<Report, ReportHolder>(
+                Report.class, R.layout.cardviewreport, ReportHolder.class, reportRef.child("LRT-APU").orderByChild("datetime").startAt(date_this_week).endAt(date_now) // select * from Report where route = scp-apu
+        ) {
             @Override
             protected void populateViewHolder(ReportHolder viewHolder, Report model, int position) {
-                viewHolder.txtDate.setText(viewHolder.txtDate.getText().toString() + ": " + getDateString(model.getDatetime()));
-                viewHolder.txtTime.setText(viewHolder.txtTime.getText().toString() + " " + getTimeString(model.getDatetime()));
-                viewHolder.txtFrom.setText(viewHolder.txtFrom.getText().toString() + " " + model.getFrom());
-                viewHolder.txtTo.setText(viewHolder.txtTo.getText().toString() + " " + model.getTo());
-                viewHolder.txtRoute.setText(viewHolder.txtRoute.getText().toString() + ": " + model.getRoute());
-
+                viewHolder.txtDate.setText("");
+                viewHolder.txtTime.setText("");
+                viewHolder.txtFrom.setText("");
+                viewHolder.txtTo.setText("");
+                viewHolder.txtRoute.setText("");
+                viewHolder.txtDate.setText("Date"   + ": " + getDateString(model.getDatetime() * 1000));
+                viewHolder.txtTime.setText("Time"   + ": " + getTimeString(model.getDatetime() * 1000));
+                viewHolder.txtFrom.setText("From"   + ": " + model.getFrom());
+                viewHolder.txtTo.setText("To"       + ": " + model.getTo());
+                viewHolder.txtRoute.setText("Route" + ": " + model.getRoute());
             }
         };
-        reportAdapterAllTo.notifyDataSetChanged();
 
-        reportAdapterThisWeek = new FirebaseRecyclerAdapter<Report, ReportHolder>(Report.class, R.layout.cardviewreport, ReportHolder.class, reportRef.orderByChild("route").equalTo("LRT-APU").orderByChild("datetime").startAt(date_this_week).endAt(date_now)) {
+
+        reportAdapterLastWeek = new FirebaseRecyclerAdapter<Report, ReportHolder>(
+                Report.class, R.layout.cardviewreport, ReportHolder.class, reportRef.child("LRT-APU").orderByChild("datetime").startAt(date_last_week).endAt(date_this_week) // select * from Report where route = endah-apu
+        ) {
             @Override
             protected void populateViewHolder(ReportHolder viewHolder, Report model, int position) {
-                viewHolder.txtDate.setText(viewHolder.txtDate.getText().toString() + ": " + getDateString(model.getDatetime()));
-                viewHolder.txtTime.setText(viewHolder.txtTime.getText().toString() + " " + getTimeString(model.getDatetime()));
-                viewHolder.txtFrom.setText(viewHolder.txtFrom.getText().toString() + " " + model.getFrom());
-                viewHolder.txtTo.setText(viewHolder.txtTo.getText().toString() + " " + model.getTo());
-                viewHolder.txtRoute.setText(viewHolder.txtRoute.getText().toString() + ": " + model.getRoute());
-
+                viewHolder.txtDate.setText("");
+                viewHolder.txtTime.setText("");
+                viewHolder.txtFrom.setText("");
+                viewHolder.txtTo.setText("");
+                viewHolder.txtRoute.setText("");
+                viewHolder.txtDate.setText("Date"   + ": " + getDateString(model.getDatetime() * 1000));
+                viewHolder.txtTime.setText("Time"   + ": " + getTimeString(model.getDatetime() * 1000));
+                viewHolder.txtFrom.setText("From"   + ": " + model.getFrom());
+                viewHolder.txtTo.setText("To"       + ": " + model.getTo());
+                viewHolder.txtRoute.setText("Route" + ": " + model.getRoute());
             }
         };
-        reportAdapterThisWeek.notifyDataSetChanged();
 
-        reportAdapterLastWeek = new FirebaseRecyclerAdapter<Report, ReportHolder>(Report.class, R.layout.cardviewreport, ReportHolder.class, reportRef.orderByChild("route").equalTo("LRT-APU").orderByChild("datetime").startAt(date_last_week).endAt(date_now)) {
+        reportAdapterAllTo = new FirebaseRecyclerAdapter<Report, ReportHolder>(
+                Report.class, R.layout.cardviewreport, ReportHolder.class, reportRef.child("LRT-APU").orderByChild("to").equalTo("LRT") // select * from Report where route = endah-apu
+        ) {
             @Override
             protected void populateViewHolder(ReportHolder viewHolder, Report model, int position) {
-                viewHolder.txtDate.setText(viewHolder.txtDate.getText().toString() + ": " + getDateString(model.getDatetime()));
-                viewHolder.txtTime.setText(viewHolder.txtTime.getText().toString() + " " + getTimeString(model.getDatetime()));
-                viewHolder.txtFrom.setText(viewHolder.txtFrom.getText().toString() + " " + model.getFrom());
-                viewHolder.txtTo.setText(viewHolder.txtTo.getText().toString() + " " + model.getTo());
-                viewHolder.txtRoute.setText(viewHolder.txtRoute.getText().toString() + ": " + model.getRoute());
-
+                viewHolder.txtDate.setText("");
+                viewHolder.txtTime.setText("");
+                viewHolder.txtFrom.setText("");
+                viewHolder.txtTo.setText("");
+                viewHolder.txtRoute.setText("");
+                viewHolder.txtDate.setText("Date"   + ": " + getDateString(model.getDatetime() * 1000));
+                viewHolder.txtTime.setText("Time"   + ": " + getTimeString(model.getDatetime() * 1000));
+                viewHolder.txtFrom.setText("From"   + ": " + model.getFrom());
+                viewHolder.txtTo.setText("To"       + ": " + model.getTo());
+                viewHolder.txtRoute.setText("Route" + ": " + model.getRoute());
             }
         };
-        reportAdapterThisWeek.notifyDataSetChanged();
 
         reportRecyclerView.setLayoutManager(layoutManager);
         reportRecyclerView.setAdapter(reportAdapterAllFrom);
@@ -114,7 +138,7 @@ public class LrtReport extends Fragment {
         //create filter
         thisWeekButt = (Button) view.findViewById(R.id.thisWeek);
         lastWeekButt = (Button) view.findViewById(R.id.lastWeek);
-        allButt = (Button) view.findViewById(R.id.all);
+        allButt = (Button) view.findViewById(R.id.ViewAll);
         switchbutt =  (FloatingActionButton) view.findViewById(R.id.switchToFrom);
 
         thisWeekButt.setOnClickListener(new View.OnClickListener() {
@@ -145,10 +169,12 @@ public class LrtReport extends Fragment {
                 if(destination_switch == "from"){
                     destination_switch = "to";
                     reportRecyclerView.swapAdapter(reportAdapterAllTo, false);
+                    reportAdapterAllTo.notifyDataSetChanged();
                     filter_text.setText("All To");
                 } else {
                     destination_switch = "from";
                     reportRecyclerView.swapAdapter(reportAdapterAllFrom, false);
+                    reportAdapterAllFrom.notifyDataSetChanged();
                     filter_text.setText("All From");
                 }
             }

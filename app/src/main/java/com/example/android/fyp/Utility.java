@@ -47,6 +47,6 @@ public class Utility {
 
     public static Long convertToTimestamp(Calendar datetime, int addition) {
         datetime.add(Calendar.DAY_OF_YEAR, addition);
-        return datetime.getTimeInMillis();
+        return datetime.getTimeInMillis() / 1000;
     }
 }
