@@ -418,28 +418,12 @@ public class StudentMapsActivity extends AppCompatActivity implements OnMapReady
                                         pushNotif("APU's Shuttle Bus Service", "Bus Arriving To Destination");
                                     } else if(distanceAssignation<50) {
                                         pushNotif("APU's Shuttle Bus Service", "Bus Has Arrived At Destination");
-                                        mDatabase = FirebaseDatabase.getInstance().getReference();
-                                        Date c = Calendar.getInstance().getTime();
-                                        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
-                                        SimpleDateFormat tf = new SimpleDateFormat("HH:mm:ss");
-                                        String formattedDate = df.format(c);
-                                        String formattedTime = tf.format(c);
-                                        Report report = new Report("APU", assignation, assignation, formattedTime, formattedDate);
-                                        mDatabase.child("Report").push().setValue(report);
                                     }
 
                                     if(distanceApu<100){
                                         pushNotif("APU's Shuttle Bus Service", "Bus Arriving To APU");
                                     } else if(distanceApu<50){
                                         pushNotif("APU's Shuttle Bus Service", "Bus Has Arrived At APU");
-                                        mDatabase = FirebaseDatabase.getInstance().getReference();
-                                        Date c = Calendar.getInstance().getTime();
-                                        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
-                                        SimpleDateFormat tf = new SimpleDateFormat("HH:mm:ss");
-                                        String formattedDate = df.format(c);
-                                        String formattedTime = tf.format(c);
-                                        Report report = new Report(assignation, "APU", assignation, formattedTime, formattedDate);
-                                        mDatabase.child("Report").push().setValue(report);
                                     }
                                 }
                             }
