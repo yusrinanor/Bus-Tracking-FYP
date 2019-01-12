@@ -16,6 +16,15 @@
             android:layout_marginTop="20dp"
             android:text="Endah Report"
             />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="15dp"
+            android:id="@+id/filter_text"
+            android:layout_gravity="center"
+            android:text="All From"
+            />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -60,14 +69,6 @@
             >
 
         </android.support.v7.widget.RecyclerView>
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/switchbutt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:src="@drawable/ic_compare_arrows_black_24dp"
-            android:backgroundTint="#FF9800"
-            android:layout_margin="16dp" />
 
     </LinearLayout>
     <android.support.design.widget.FloatingActionButton

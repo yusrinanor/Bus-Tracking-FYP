@@ -424,23 +424,18 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
 
                         if(distanceAssignation<50) {
                             mDatabase = FirebaseDatabase.getInstance().getReference();
-                            Date c = Calendar.getInstance().getTime();
-                            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-                            SimpleDateFormat tf = new SimpleDateFormat("HH:mm:ss");
-                            String formattedDate = df.format(c);
-                            String formattedTime = tf.format(c);
-                            Report report = new Report("APU", assignation, assignation.toUpperCase() + "-" + "APU", formattedTime, formattedDate);
+                            Calendar datetime = Calendar.getInstance();
+                            long now_date = datetime.getTimeInMillis();
+                            Log.d("timeinmilis", Long.toString(now_date));
+                            Report report = new Report("APU", assignation, assignation.toUpperCase() + "-" + "APU", now_date);
                             mDatabase.child("Report").push().setValue(report);
                         }
 
                         if(distanceApu<50){
                             mDatabase = FirebaseDatabase.getInstance().getReference();
-                            Date c = Calendar.getInstance().getTime();
-                            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-                            SimpleDateFormat tf = new SimpleDateFormat("HH:mm");
-                            String formattedDate = df.format(c);
-                            String formattedTime = tf.format(c);
-                            Report report = new Report(assignation, "APU", assignation.toUpperCase() + "-" + "APU", formattedTime, formattedDate);
+                            Calendar datetime = Calendar.getInstance();
+                            long now_date = datetime.getTimeInMillis();
+                            Report report = new Report(assignation, "APU", assignation.toUpperCase() + "-" + "APU", now_date);
                             mDatabase.child("Report").push().setValue(report);
                         }
 
