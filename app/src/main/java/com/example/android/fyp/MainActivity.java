@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,15 +41,23 @@ public class MainActivity extends AppCompatActivity {
         nLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // giving message instantly after click
                 Toast.makeText(MainActivity.this, "Loading...", Toast.LENGTH_SHORT).show();
+                if(validateText() == true){
+                }
+                else {
+                    return;
+                }
+                // getting the text of the textfield
                 final String email = nEmail.getText().toString() + "@apu.edu.my";
                 final String password = nPassword.getText().toString();
 
+                // sending request to API
                 authentication.signInWithEmailAndPassword(email, password).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (!task.isSuccessful()){
-                            Toast.makeText(MainActivity.this, "sign in error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "User ID or password incorrect", Toast.LENGTH_SHORT).show();
                         }
                         else {
                             FirebaseUser user = authentication.getCurrentUser();
@@ -67,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         updateUI(currUser);
     }
 
-    private void updateUI(FirebaseUser user){
+    private void updateUI(FirebaseUser user) {
         if(user != null){
             String userEmail = user.getEmail(); // get dr000001@apu.edu.my from email in firebase auth
             String[] userName = userEmail.split("@"); //spliting email into array seperated by @; output username = ['dr00001','apu.edu.my']
@@ -93,6 +102,19 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
+    }
+
+    private boolean validateText() {
+        boolean result = true;
+        if(TextUtils.isEmpty(nPassword.getText()) && TextUtils.isEmpty(nEmail.getText())){
+            result = false;
+            Toast.makeText(this, "All fields are required to fill in", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(nPassword.getText()) || TextUtils.isEmpty(nEmail.getText())){
+            result = false;
+            Toast.makeText(this, "User ID or password needs to be filled in", Toast.LENGTH_SHORT).show();
+        }
+
+        return result;
     }
 
 }
