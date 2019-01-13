@@ -179,6 +179,9 @@ public class StudentMapsActivity extends AppCompatActivity implements OnMapReady
                                 finish();
                                 return true;
                             case R.id.nav_BusTracking:
+                                Intent bustracking = new Intent(StudentMapsActivity.this, RoutePickerStud.class);
+                                startActivity(bustracking);
+                                finish();
                                 return true;
                             case R.id.nav_Feedback:
                                 Intent feedback = new Intent(StudentMapsActivity.this, FeedbackStud.class);
