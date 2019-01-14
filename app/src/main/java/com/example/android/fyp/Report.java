@@ -4,18 +4,16 @@ public class Report {
     private String from;
     private String to;
     private String route;
-    private String date;
-    private String time;
+    private long datetime;
 
     public Report() {
     }
 
-    public Report(String from, String to, String route, String date, String time) {
+    public Report(String from, String to, String route, long datetime) {
         this.from = from;
         this.to = to;
         this.route = route;
-        this.date = date;
-        this.time = time;
+        this.datetime = datetime;
     }
 
     public String getFrom() {
@@ -42,20 +40,11 @@ public class Report {
         this.route = route;
     }
 
-    public String getDate() {
-        return date;
+    public long getDatetime() {
+        return datetime;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDatetime(long datetime) {
+        this.datetime = datetime;
     }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
 }

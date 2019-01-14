@@ -48,7 +48,11 @@
         <activity
             android:name=".FeedbackDriver"
             android:label="Give Feedback"
-            android:theme="@style/AppTheme" /
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Ad_Bus_Report"
+            android:label="Bus Report"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".ViewFeedback"
             android:label="View Feedback"
@@ -77,10 +81,6 @@
             android:name=".RoutePickerStud"
             android:label="Pick a Route"
             android:theme="@style/AppTheme" />
-        <activity
-            android:name=".Ad_Bus_Report"
-            android:label="@string/title_activity_ad__bus__report"
-            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

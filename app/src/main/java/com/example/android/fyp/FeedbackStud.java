@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -73,6 +74,11 @@ public class FeedbackStud extends AppCompatActivity implements NavigationView.On
         mSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(validateText() == true){
+                }
+                else {
+                    return;
+                }
                 Date c = Calendar.getInstance().getTime();
                 SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
                 String formattedDate = df.format(c);
@@ -83,6 +89,18 @@ public class FeedbackStud extends AppCompatActivity implements NavigationView.On
                 Toast.makeText(FeedbackStud.this, "Submitted!", Toast.LENGTH_SHORT).show();
             }
         });
+
+
+    }
+
+    private boolean validateText() {
+        boolean result = true;
+        if(TextUtils.isEmpty(mMessage.getText())){
+            result = false;
+            Toast.makeText(this, "Message is required to fill in", Toast.LENGTH_SHORT).show();
+        }
+
+        return result;
     }
 
     @Override

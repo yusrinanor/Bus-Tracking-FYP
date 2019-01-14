@@ -65,6 +65,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.android.fyp.Utility.convertToTimestamp;
+
 public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener, RoutingListener {
     private List<Polyline> polylines;
     private static final int[] COLORS = new int[]{R.color.colorPrimary};
@@ -424,24 +426,18 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
 
                         if(distanceAssignation<50) {
                             mDatabase = FirebaseDatabase.getInstance().getReference();
-                            Date c = Calendar.getInstance().getTime();
-                            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-                            SimpleDateFormat tf = new SimpleDateFormat("HH:mm:ss");
-                            String formattedDate = df.format(c);
-                            String formattedTime = tf.format(c);
-                            Report report = new Report("APU", assignation, assignation.toUpperCase() + "-" + "APU", formattedTime, formattedDate);
-                            mDatabase.child("Report").push().setValue(report);
+                            Calendar calendar = Calendar.getInstance();
+                            long now_date = convertToTimestamp(calendar, 0);
+                            Report report = new Report("APU", assignation, assignation.toUpperCase() + "-" + "APU", now_date);
+                            mDatabase.child("Report").child( assignation.toUpperCase() + "-APU").push().setValue(report);
                         }
 
                         if(distanceApu<50){
                             mDatabase = FirebaseDatabase.getInstance().getReference();
-                            Date c = Calendar.getInstance().getTime();
-                            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-                            SimpleDateFormat tf = new SimpleDateFormat("HH:mm");
-                            String formattedDate = df.format(c);
-                            String formattedTime = tf.format(c);
-                            Report report = new Report(assignation, "APU", assignation.toUpperCase() + "-" + "APU", formattedTime, formattedDate);
-                            mDatabase.child("Report").push().setValue(report);
+                            Calendar calendar = Calendar.getInstance();
+                            long now_date = calendar.getTimeInMillis();
+                            Report report = new Report(assignation, "APU", assignation.toUpperCase() + "-" + "APU", now_date);
+                            mDatabase.child("Report").child( assignation.toUpperCase() + "-APU").push().setValue(report);
                         }
 
                     }
