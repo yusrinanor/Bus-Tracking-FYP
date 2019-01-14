@@ -2,6 +2,9 @@ package com.example.android.fyp;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -139,6 +142,13 @@ public class StudentMapsActivity extends AppCompatActivity implements OnMapReady
     private Location apuLocation = new Location("");
     private Location assignationLocation = new Location("");
     Marker mCurrLocationMarker;
+    //future enhancement
+    private boolean is_arriving_to_destination;
+    private boolean is_arrived_to_destination;
+    private boolean is_driving;
+    private boolean is_arriving_to_origin;
+    private boolean is_arrived_to_origin;
+    private boolean is_departing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -178,6 +188,10 @@ public class StudentMapsActivity extends AppCompatActivity implements OnMapReady
                                 startActivity(home);
                                 finish();
                                 return true;
+                            case R.id.nav_ViewBusSchedule:
+                                Intent busschedule = new Intent(StudentMapsActivity.this, ViewBusSchedule.class);
+                                startActivity(busschedule);
+                                finish();
                             case R.id.nav_BusTracking:
                                 Intent bustracking = new Intent(StudentMapsActivity.this, RoutePickerStud.class);
                                 startActivity(bustracking);
@@ -358,12 +372,13 @@ public class StudentMapsActivity extends AppCompatActivity implements OnMapReady
     }
 
     public void pushNotif(String title, String message) {
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "push")
-                .setSmallIcon(R.drawable.logo1)
-                .setContentTitle(title)
-                .setContentText(message)
-                .setStyle(new NotificationCompat.BigTextStyle())
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        NotificationManager notif=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        Notification notify=new Notification.Builder
+                (getApplicationContext()).setContentTitle(title).setContentText(message).
+                setContentTitle(title).setSmallIcon(R.drawable.bus).build();
+
+        notify.flags |= Notification.FLAG_AUTO_CANCEL;
+        notif.notify(0, notify);
     }
 
 
@@ -401,8 +416,9 @@ public class StudentMapsActivity extends AppCompatActivity implements OnMapReady
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 String assignation = (String) dataSnapshot.child("assignation").getValue();
+                                Log.d("kontol4", assignation);
+                                Log.d("kontol5", location);
                                 if(assignation.equals(location)) {
-
                                     LatLng latLng = new LatLng(geolocation.latitude, geolocation.longitude);
                                     MarkerOptions markerOptions = new MarkerOptions();
                                     markerOptions.position(latLng);
@@ -416,17 +432,19 @@ public class StudentMapsActivity extends AppCompatActivity implements OnMapReady
 
                                     float distanceAssignation = driverLocation.distanceTo(assignationLocation);
                                     float distanceApu = driverLocation.distanceTo(apuLocation);
-
-                                    if(distanceAssignation<100){
-                                        pushNotif("APU's Shuttle Bus Service", "Bus Arriving To Destination");
-                                    } else if(distanceAssignation<50) {
+                                    Log.d("kontol1", Float.toString(distanceAssignation));
+                                    Log.d("kontol1", Float.toString(distanceApu));
+                                    if(distanceAssignation<50){
+                                        Log.d("kontol", "amam");
                                         pushNotif("APU's Shuttle Bus Service", "Bus Has Arrived At Destination");
+                                    } else if(distanceAssignation<100) {
+                                        pushNotif("APU's Shuttle Bus Service", "Bus Arriving To Destination");
                                     }
 
-                                    if(distanceApu<100){
-                                        pushNotif("APU's Shuttle Bus Service", "Bus Arriving To APU");
-                                    } else if(distanceApu<50){
+                                    if(distanceApu<50){
                                         pushNotif("APU's Shuttle Bus Service", "Bus Has Arrived At APU");
+                                    } else if(distanceApu<100){
+                                        pushNotif("APU's Shuttle Bus Service", "Bus Arriving To APU");
                                     }
                                 }
                             }
@@ -451,7 +469,7 @@ public class StudentMapsActivity extends AppCompatActivity implements OnMapReady
 
                     @Override
                     public void onKeyMoved(String key, GeoLocation location) {
-
+                        Log.d("kontolspecial", "yeah");
                     }
 
                     @Override
