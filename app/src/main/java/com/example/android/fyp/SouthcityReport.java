@@ -73,7 +73,7 @@ public class SouthcityReport extends Fragment {
                 viewHolder.txtTo.setText("");
                 viewHolder.txtRoute.setText("");
                 viewHolder.txtDate.setText("Date"   + ": " + getDateString(model.getDatetime() * 1000));
-                viewHolder.txtTime.setText("Time"   + ": " + getTimeString(model.getDatetime() * 1000));
+                viewHolder.txtTime.setText("Arrival Time"   + ": " + getTimeString(model.getDatetime() * 1000));
                 viewHolder.txtFrom.setText("From"   + ": " + model.getFrom());
                 viewHolder.txtTo.setText("To"       + ": " + model.getTo());
                 viewHolder.txtRoute.setText("Route" + ": " + model.getRoute());
@@ -91,7 +91,7 @@ public class SouthcityReport extends Fragment {
                 viewHolder.txtTo.setText("");
                 viewHolder.txtRoute.setText("");
                 viewHolder.txtDate.setText("Date"   + ": " + getDateString(model.getDatetime() * 1000));
-                viewHolder.txtTime.setText("Time"   + ": " + getTimeString(model.getDatetime() * 1000));
+                viewHolder.txtTime.setText("Arrival Time"   + ": " + getTimeString(model.getDatetime() * 1000));
                 viewHolder.txtFrom.setText("From"   + ": " + model.getFrom());
                 viewHolder.txtTo.setText("To"       + ": " + model.getTo());
                 viewHolder.txtRoute.setText("Route" + ": " + model.getRoute());
@@ -110,7 +110,7 @@ public class SouthcityReport extends Fragment {
                 viewHolder.txtTo.setText("");
                 viewHolder.txtRoute.setText("");
                 viewHolder.txtDate.setText("Date"   + ": " + getDateString(model.getDatetime() * 1000));
-                viewHolder.txtTime.setText("Time"   + ": " + getTimeString(model.getDatetime() * 1000));
+                viewHolder.txtTime.setText("Arrival Time"   + ": " + getTimeString(model.getDatetime() * 1000));
                 viewHolder.txtFrom.setText("From"   + ": " + model.getFrom());
                 viewHolder.txtTo.setText("To"       + ": " + model.getTo());
                 viewHolder.txtRoute.setText("Route" + ": " + model.getRoute());
@@ -129,7 +129,7 @@ public class SouthcityReport extends Fragment {
                 viewHolder.txtTo.setText("");
                 viewHolder.txtRoute.setText("");
                 viewHolder.txtDate.setText("Date"   + ": " + getDateString(model.getDatetime() * 1000));
-                viewHolder.txtTime.setText("Time"   + ": " + getTimeString(model.getDatetime() * 1000));
+                viewHolder.txtTime.setText("Arrival Time"   + ": " + getTimeString(model.getDatetime() * 1000));
                 viewHolder.txtFrom.setText("From"   + ": " + model.getFrom());
                 viewHolder.txtTo.setText("To"       + ": " + model.getTo());
                 viewHolder.txtRoute.setText("Route" + ": " + model.getRoute());
@@ -158,6 +158,7 @@ public class SouthcityReport extends Fragment {
             @Override
             public void onClick(View view) {
                 reportRecyclerView.swapAdapter(reportAdapterLastWeek, false);
+                filter_text.setText("Last week");
             }
         });
 
@@ -165,6 +166,7 @@ public class SouthcityReport extends Fragment {
             @Override
             public void onClick(View view) {
                 reportRecyclerView.swapAdapter(reportAdapterAllFrom, false);
+                filter_text.setText("All from Southcity");
             }
         });
 
