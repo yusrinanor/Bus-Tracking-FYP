@@ -104,10 +104,17 @@ public class Ad_AddBusSchedule extends AppCompatActivity implements NavigationVi
         boolean result = true;
         String fromLocation = mFromLocation.getSelectedItem().toString();
         String toLocation = mToLocation.getSelectedItem().toString();
+        int minHour = 8;
+        int maxHour = 22;
+
+        if((mTiming.getCurrentHour() > maxHour) || mTiming.getCurrentHour() < minHour) {
+            result = false;
+            Toast.makeText(this, "minimum 8 am maximum 10 pm", Toast.LENGTH_SHORT).show();
+        }
 
         if(fromLocation.equals(toLocation)){
             result = false;
-            Toast.makeText(this, "cannot select multiple APUs", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "cannot select same location for origin and destination", Toast.LENGTH_SHORT).show();
         } else if (!(fromLocation.equals("APU") || toLocation.equals("APU"))) {
             result = false;
             Toast.makeText(this, "either one have to select APU", Toast.LENGTH_SHORT).show();
