@@ -109,7 +109,7 @@ public class Ad_AddBusSchedule extends AppCompatActivity implements NavigationVi
 
         if((mTiming.getCurrentHour() > maxHour) || mTiming.getCurrentHour() < minHour) {
             result = false;
-            Toast.makeText(this, "minimum 8 am maximum 10 pm", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "minimum time is 8 am, maximum time 10 pm", Toast.LENGTH_SHORT).show();
         }
 
         if(fromLocation.equals(toLocation)){
@@ -117,7 +117,7 @@ public class Ad_AddBusSchedule extends AppCompatActivity implements NavigationVi
             Toast.makeText(this, "cannot select same location for origin and destination", Toast.LENGTH_SHORT).show();
         } else if (!(fromLocation.equals("APU") || toLocation.equals("APU"))) {
             result = false;
-            Toast.makeText(this, "either one have to select APU", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "either location must include APU", Toast.LENGTH_SHORT).show();
         }
 
         return result;

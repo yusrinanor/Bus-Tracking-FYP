@@ -28,7 +28,7 @@ public class EndahAdmin extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.vista, container, false);
+        view = inflater.inflate(R.layout.endah, container, false);
         mDatabase = FirebaseDatabase.getInstance();
         fromAPU = mDatabase.getReference("Schedules").child("Apu-to-endah");
         toAPU = mDatabase.getReference("Schedules").child("Endah-to-apu");

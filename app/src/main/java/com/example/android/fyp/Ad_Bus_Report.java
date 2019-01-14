@@ -126,6 +126,9 @@ public class Ad_Bus_Report extends AppCompatActivity implements
                 finish();
                 return true;
             case R.id.nav_AddBusSchedule:
+                Intent addschedule = new Intent(Ad_Bus_Report.this, Ad_AddBusSchedule.class);
+                startActivity(addschedule);
+                finish();
                 return true;
             case R.id.nav_EditSchedule:
                 Intent editschedule = new Intent(Ad_Bus_Report.this, Ad_EditBusSchedule.class);

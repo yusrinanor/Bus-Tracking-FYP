@@ -78,7 +78,7 @@ public class EndahReport extends Fragment {
                 viewHolder.txtTo.setText("");
                 viewHolder.txtRoute.setText("");
                 viewHolder.txtDate.setText("Date"   + ": " + getDateString(model.getDatetime() * 1000));
-                viewHolder.txtTime.setText("Time"   + ": " + getTimeString(model.getDatetime() * 1000));
+                viewHolder.txtTime.setText("Arrival Time"   + ": " + getTimeString(model.getDatetime() * 1000));
                 viewHolder.txtFrom.setText("From"   + ": " + model.getFrom());
                 viewHolder.txtTo.setText("To"       + ": " + model.getTo());
                 viewHolder.txtRoute.setText("Route" + ": " + model.getRoute());
@@ -96,7 +96,7 @@ public class EndahReport extends Fragment {
                 viewHolder.txtTo.setText("");
                 viewHolder.txtRoute.setText("");
                 viewHolder.txtDate.setText("Date"   + ": " + getDateString(model.getDatetime() * 1000));
-                viewHolder.txtTime.setText("Time"   + ": " + getTimeString(model.getDatetime() * 1000));
+                viewHolder.txtTime.setText("Arrival Time"   + ": " + getTimeString(model.getDatetime() * 1000));
                 viewHolder.txtFrom.setText("From"   + ": " + model.getFrom());
                 viewHolder.txtTo.setText("To"       + ": " + model.getTo());
                 viewHolder.txtRoute.setText("Route" + ": " + model.getRoute());
@@ -114,7 +114,7 @@ public class EndahReport extends Fragment {
                 viewHolder.txtTo.setText("");
                 viewHolder.txtRoute.setText("");
                 viewHolder.txtDate.setText("Date"   + ": " + getDateString(model.getDatetime() * 1000));
-                viewHolder.txtTime.setText("Time"   + ": " + getTimeString(model.getDatetime() * 1000));
+                viewHolder.txtTime.setText(" Arrival Time"   + ": " + getTimeString(model.getDatetime() * 1000));
                 viewHolder.txtFrom.setText("From"   + ": " + model.getFrom());
                 viewHolder.txtTo.setText("To"       + ": " + model.getTo());
                 viewHolder.txtRoute.setText("Route" + ": " + model.getRoute());
@@ -133,7 +133,7 @@ public class EndahReport extends Fragment {
                 viewHolder.txtTo.setText("");
                 viewHolder.txtRoute.setText("");
                 viewHolder.txtDate.setText("Date"   + ": " + getDateString(model.getDatetime() * 1000));
-                viewHolder.txtTime.setText("Time"   + ": " + getTimeString(model.getDatetime() * 1000));
+                viewHolder.txtTime.setText("Arrival Time"   + ": " + getTimeString(model.getDatetime() * 1000));
                 viewHolder.txtFrom.setText("From"   + ": " + model.getFrom());
                 viewHolder.txtTo.setText("To"       + ": " + model.getTo());
                 viewHolder.txtRoute.setText("Route" + ": " + model.getRoute());
@@ -172,7 +172,7 @@ public class EndahReport extends Fragment {
             public void onClick(View view) {
                 reportRecyclerView.swapAdapter(reportAdapterAllFrom, false);
                 reportAdapterAllFrom.notifyDataSetChanged();
-                filter_text.setText("All from");
+                filter_text.setText("All from Endah");
             }
         });
 
